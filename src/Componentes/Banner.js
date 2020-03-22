@@ -7,7 +7,7 @@ import Typography from './Typography'
 const styles = theme => ({
     root: {
       position:'relative',
-    },  
+    },
       images: {
         width:'100%',
         height:'100vh',
@@ -25,7 +25,7 @@ const styles = theme => ({
         '&:hover': {
           border: '4px solid currentColor',
         },
-      },    
+      },
       imageBackdrop: {
         height: 3,
         width: 18,
@@ -43,19 +43,11 @@ function Banner(props) {
   return (
     <LayoutBody className={classes.root} component="section"  width='full' fullWidth='true'>
         <div className={classes.images}>
-          <ButtonBase className={classes.imageWrapper}>
-            <div className={classes.imageBackdrop} />
-            <Typography
-                  component="h1"
-                  variant="h4"
-                  color="inherit"
-                  className={classes.imageTitle}
-                >
-                Comenzemos
-            </Typography>
-          </ButtonBase>
+          <header>
+            <img src={"https://scontent.fluq1-1.fna.fbcdn.net/v/t1.15752-9/87256989_170201877762779_1941255209825075200_n.png?_nc_cat=101&_nc_sid=b96e70&_nc_ohc=YWIlJVk0bTMAX-BMcuL&_nc_ht=scontent.fluq1-1.fna&oh=fde41c840c0d050a997d146851c5c510&oe=5E9D298D"} />
+          </header>
         </div>
-    </LayoutBody>    
+    </LayoutBody>
   );
 }
 Banner.propTypes = {
