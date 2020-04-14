@@ -1,12 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import LayoutBody from './LayoutBody';
 import Typography from './Typography';
-import Popper from '@material-ui/core/Popper';
-import Fade from '@material-ui/core/Fade';
-import Paper from '@material-ui/core/Paper';
+import CategoryAdornos from './CategoryViews/CategoryAdornos'
+import CategoryCuadros from './CategoryViews/CategoryCuadros'
+import CategoryLajeros from './CategoryViews/CategoryLajeros'
+import CategoryBastidores from './CategoryViews/CategoryBastidores'
+import CategoryColgantes from './CategoryViews/CategoryColgantes'
+import CategoryEspejos from './CategoryViews/CategoryEspejos'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -84,107 +92,122 @@ const styles = theme => ({
     transition: theme.transitions.create('opacity'),
   },
 });
-
-function ProductCategories(props) {
-  const { classes } = props;
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-    function handleClick(event) {
-      setAnchorEl(anchorEl ? null : event.currentTarget);
-      {console.log(event)}
+class ProductCategories extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      images : [
+        {
+          url:
+            'https://www.arkiplus.com/wp-content/uploads/2013/07/mosaiquismo-sobre-madera4.jpg',
+          title: 'Cuadros',
+          width: '40%',
+          path: '/Cuadros'
+        },
+        {
+          url:
+            'https://i.pinimg.com/originals/e4/8f/e7/e48fe74354051e74b3f25e1243f25384.jpg',
+          title: 'Espejos',
+          width: '20%',
+          path: '/Espejos'
+        },
+        {
+          url:
+            'https://i.pinimg.com/564x/fa/a1/9f/faa19f4bf129c849fcd3aafce7c39cfd.jpg',
+          title: 'Bastidores',
+          width: '40%',
+          path: '/Bastidores'
+        },
+        {
+          url:
+            'https://i.pinimg.com/564x/bc/d3/f7/bcd3f7fe56a4cd9844885aea3ecec204.jpg',
+          title: 'Colgantes',
+          width: '38%',
+          path: '/Colgantes',
+        },
+        {
+          url:
+            'https://i.pinimg.com/originals/66/09/3f/66093f1f6b6ab2f4fab7b388a35ac605.jpg',
+          title: 'Lajeros',
+          width: '38%',
+          path: '/Lajeros',
+        },
+        {
+          url:
+            'https://i.pinimg.com/564x/bb/33/36/bb33369468858c3eadb16274cb3da380.jpg',
+          title: 'Adornos',
+          width: '24%',
+          path:"/Adornos"
+        },
+      ],
     }
+  }
 
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popper' : null;
-  const images = [
-    {
-      url:
-        'https://www.arkiplus.com/wp-content/uploads/2013/07/mosaiquismo-sobre-madera4.jpg',
-      title: 'Cuadros',
-      width: '40%',
-    },
-    {
-      url:
-        'https://i.pinimg.com/originals/e4/8f/e7/e48fe74354051e74b3f25e1243f25384.jpg',
-      title: 'Espejos',
-      width: '20%',
-    },
-    {
-      url:
-        'https://i.pinimg.com/564x/fa/a1/9f/faa19f4bf129c849fcd3aafce7c39cfd.jpg',
-      title: 'Bastidores',
-      width: '40%',
-    },
-    {
-      url:
-        'https://i.pinimg.com/564x/bc/d3/f7/bcd3f7fe56a4cd9844885aea3ecec204.jpg',
-      title: 'Colgantes',
-      width: '38%',
-    },
-    {
-      url:
-        'https://i.pinimg.com/originals/66/09/3f/66093f1f6b6ab2f4fab7b388a35ac605.jpg',
-      title: 'Lajeros',
-      width: '38%',
-    },
-    {
-      url:
-        'https://i.pinimg.com/564x/bb/33/36/bb33369468858c3eadb16274cb3da380.jpg',
-      title: 'Adornos',
-      width: '24%',
-    },
-  ];
-let i = 0;
-  return (
-    <LayoutBody className={classes.root} component="section" marginBottom='true'>
-      <div className={classes.images}>
-        {images.map(image => (
-          <React.Fragment>
-            <ButtonBase
-              onClick={handleClick}
-              key={image.title}
-              className={classes.imageWrapper}
-              style={{
-                width: image.width,
-              }}
-            >
-              <div
-                className={classes.imageSrc}
-                style={{
-                  backgroundImage: `url(${image.url})`,
-                }}
-              />
-              <div className={classes.imageBackdrop} />
-              <div className={classes.imageButton}>
-                <Typography
-                  component="h3"
-                  variant="h6"
-                  color="inherit"
-                  className={classes.imageTitle}
+  render(){
+
+    const {classes} = this.props
+    return (
+      <LayoutBody className={classes.root} component="section" marginBottom='true'>
+      <Router>
+        <div className={classes.images}>
+          {this.state.images.map(image => (
+            <React.Fragment>
+
+              <Link to = {`/${image.path}`}>
+                <ButtonBase
+                  key={image.title}
+                  className={classes.imageWrapper}
+                  style={{
+                    width: image.width,
+                  }}
                 >
-                  {image.title}
-                  <div className={classes.imageMarked} />
-                </Typography>
-              </div>
-            </ButtonBase>
-            <Popper id={id} open={open} anchorEl={anchorEl} transition>
-                {({ TransitionProps }) => (
-                  <Fade {...TransitionProps} timeout={350}>
-                    <Paper>
-                      <Typography className={classes.typography}>{images[i].title}</Typography>
-                    </Paper>
-                  </Fade>
-                )}
-            </Popper>
-        </React.Fragment>
-        ))}
-      </div>
-    </LayoutBody>
-  );
+                  <div
+                    className={classes.imageSrc}
+                    style={{
+                      backgroundImage: `url(${image.url})`,
+                    }}
+                  />
+                  <div className={classes.imageBackdrop} />
+                  <div className={classes.imageButton}>
+                    <Typography
+                      component="h3"
+                      variant="h6"
+                      color="inherit"
+                      className={classes.imageTitle}
+                    >
+                      {image.title}
+                      <div className={classes.imageMarked} />
+                    </Typography>
+                  </div>
+                </ButtonBase>
+              </Link>
+          </React.Fragment>
+          ))}
+        </div>
+        <Switch>
+          <Route path="/Adornos">
+            <CategoryAdornos />
+          </Route>
+          <Route path="/Cuadros">
+            <CategoryCuadros/>
+          </Route>
+          <Route path="/Lajeros">
+            <CategoryLajeros />
+          </Route>
+          <Route path="/Bastidores">
+            <CategoryBastidores />
+          </Route>
+          <Route path="/Colgantes">
+            <CategoryColgantes />
+          </Route>
+          <Route path="/Espejos">
+            <CategoryEspejos />
+          </Route>
+        </Switch>
+        </Router>
+      </LayoutBody>
+    );
+  }
+
 }
-
-ProductCategories.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
 export default withStyles(styles)(ProductCategories);

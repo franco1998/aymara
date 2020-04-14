@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import LayoutBody from './LayoutBody';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import Typography from './Typography'
+
 const styles = theme => ({
     root: {
         height:'100vh',
