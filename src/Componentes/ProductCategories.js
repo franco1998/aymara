@@ -3,18 +3,6 @@ import { withStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import LayoutBody from './LayoutBody';
 import Typography from './Typography';
-import CategoryAdornos from './CategoryViews/CategoryAdornos'
-import CategoryCuadros from './CategoryViews/CategoryCuadros'
-import CategoryLajeros from './CategoryViews/CategoryLajeros'
-import CategoryBastidores from './CategoryViews/CategoryBastidores'
-import CategoryColgantes from './CategoryViews/CategoryColgantes'
-import CategoryEspejos from './CategoryViews/CategoryEspejos'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -144,16 +132,12 @@ class ProductCategories extends React.Component {
   }
 
   render(){
-
     const {classes} = this.props
     return (
       <LayoutBody className={classes.root} component="section" marginBottom='true'>
-      <Router>
         <div className={classes.images}>
           {this.state.images.map(image => (
             <React.Fragment>
-
-              <Link to = {`/${image.path}`}>
                 <ButtonBase
                   key={image.title}
                   className={classes.imageWrapper}
@@ -180,31 +164,9 @@ class ProductCategories extends React.Component {
                     </Typography>
                   </div>
                 </ButtonBase>
-              </Link>
           </React.Fragment>
           ))}
         </div>
-        <Switch>
-          <Route path="/Adornos">
-            <CategoryAdornos />
-          </Route>
-          <Route path="/Cuadros">
-            <CategoryCuadros/>
-          </Route>
-          <Route path="/Lajeros">
-            <CategoryLajeros />
-          </Route>
-          <Route path="/Bastidores">
-            <CategoryBastidores />
-          </Route>
-          <Route path="/Colgantes">
-            <CategoryColgantes />
-          </Route>
-          <Route path="/Espejos">
-            <CategoryEspejos />
-          </Route>
-        </Switch>
-        </Router>
       </LayoutBody>
     );
   }
