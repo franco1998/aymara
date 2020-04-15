@@ -10,12 +10,16 @@ class Index extends React.Component{
     super()
 
   }
+  llamoCategoria(e){
+    alert(e.target.id.toString())
+  }
   render(){
+
     return (
       <React.Fragment>
         <Banner/>
         <Information/>
-        <ProductCategories/>
+        <ProductCategories categoria = {this.llamoCategoria.bind(this)}/>
       </React.Fragment>
     );
   }

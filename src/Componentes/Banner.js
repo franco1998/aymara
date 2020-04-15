@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import LayoutBody from './LayoutBody';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Typography from './Typography'
 const styles = theme => ({
     root: {
       position:'relative',

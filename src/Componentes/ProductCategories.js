@@ -86,6 +86,7 @@ const styles = theme => ({
 class ProductCategories extends React.Component {
   constructor(props){
     super(props)
+    props.categoria = this.handleClick.bind(this)
     this.state = {
       images : [
         {
@@ -132,19 +133,17 @@ class ProductCategories extends React.Component {
         },
       ],
     }
+
   }
 
 handleClick(event){
-  console.log(event.target.id.toString());
+  this.props.categoria(event)
 }
 
   render(){
     const {classes} = this.props
     return (
       <LayoutBody className={classes.root} component="section" marginBottom='true'>
-        <div className={classes.images}>
-          {this.state.images.map(image => (
-            <React.Fragment>
       <React.Fragment>
         <div className={classes.images}>
           {this.state.images.map(image => (
@@ -162,9 +161,7 @@ handleClick(event){
                       }}
                     />
                     <div className={classes.imageBackdrop}
-                    id={image.title}
-                    component={RouterLink}
-                    to={image.path}/>
+                    id={image.title}/>
                     <div className={classes.imageButton}
                     id={image.title}
                     onClick={this.handleClick}>
@@ -180,17 +177,15 @@ handleClick(event){
                       </Typography>
                     </div>
                 </ButtonBase>
-          </React.Fragment>
           ))}
         </div>
-=======
-          ))}
-        </div>
-
-  </React.Fragment>
+        </React.Fragment>
       </LayoutBody>
     );
   }
 
+}
+ProductCategories.propTypes = {
+  categoria : React.PropTypes.func
 }
 export default withStyles(styles)(ProductCategories);
