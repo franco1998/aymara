@@ -1,6 +1,8 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import ButtonBase from '@material-ui/core/ButtonBase';
+import {ButtonBase,
+ Button,
+} from '@material-ui/core';
 import LayoutBody from './LayoutBody';
 import Typography from './Typography';
 import CategoryAdornos from './CategoryViews/CategoryAdornos'
@@ -9,12 +11,7 @@ import CategoryLajeros from './CategoryViews/CategoryLajeros'
 import CategoryBastidores from './CategoryViews/CategoryBastidores'
 import CategoryColgantes from './CategoryViews/CategoryColgantes'
 import CategoryEspejos from './CategoryViews/CategoryEspejos'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { Link as RouterLink } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -92,6 +89,7 @@ const styles = theme => ({
     transition: theme.transitions.create('opacity'),
   },
 });
+
 class ProductCategories extends React.Component {
   constructor(props){
     super(props)
@@ -143,17 +141,18 @@ class ProductCategories extends React.Component {
     }
   }
 
+handleClick(event){
+  console.log(event.target.id.toString());
+}
+
   render(){
 
     const {classes} = this.props
     return (
       <LayoutBody className={classes.root} component="section" marginBottom='true'>
-      <Router>
+      <React.Fragment>
         <div className={classes.images}>
           {this.state.images.map(image => (
-            <React.Fragment>
-
-              <Link to = {`/${image.path}`}>
                 <ButtonBase
                   key={image.title}
                   className={classes.imageWrapper}
@@ -161,50 +160,35 @@ class ProductCategories extends React.Component {
                     width: image.width,
                   }}
                 >
-                  <div
-                    className={classes.imageSrc}
-                    style={{
-                      backgroundImage: `url(${image.url})`,
-                    }}
-                  />
-                  <div className={classes.imageBackdrop} />
-                  <div className={classes.imageButton}>
-                    <Typography
-                      component="h3"
-                      variant="h6"
-                      color="inherit"
-                      className={classes.imageTitle}
-                    >
-                      {image.title}
-                      <div className={classes.imageMarked} />
-                    </Typography>
-                  </div>
+                    <div
+                      className={classes.imageSrc}
+                      style={{
+                        backgroundImage: `url(${image.url})`,
+                      }}
+                    />
+                    <div className={classes.imageBackdrop}
+                    id={image.title}
+                    component={RouterLink}
+                    to={image.path}/>
+                    <div className={classes.imageButton}
+                    id={image.title}
+                    onClick={this.handleClick}>
+                      <Typography
+                        component="h3"
+                        variant="h6"
+                        color="inherit"
+                        className={classes.imageTitle}
+                        id={image.title}
+                      >
+                        {image.title}
+                        <div className={classes.imageMarked} />
+                      </Typography>
+                    </div>
                 </ButtonBase>
-              </Link>
-          </React.Fragment>
           ))}
         </div>
-        <Switch>
-          <Route path="/Adornos">
-            <CategoryAdornos />
-          </Route>
-          <Route path="/Cuadros">
-            <CategoryCuadros/>
-          </Route>
-          <Route path="/Lajeros">
-            <CategoryLajeros />
-          </Route>
-          <Route path="/Bastidores">
-            <CategoryBastidores />
-          </Route>
-          <Route path="/Colgantes">
-            <CategoryColgantes />
-          </Route>
-          <Route path="/Espejos">
-            <CategoryEspejos />
-          </Route>
-        </Switch>
-        </Router>
+
+  </React.Fragment>
       </LayoutBody>
     );
   }
