@@ -1,6 +1,8 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import ButtonBase from '@material-ui/core/ButtonBase';
+import {ButtonBase,
+ Button,
+} from '@material-ui/core';
 import LayoutBody from './LayoutBody';
 import Typography from './Typography';
 
@@ -80,6 +82,7 @@ const styles = theme => ({
     transition: theme.transitions.create('opacity'),
   },
 });
+
 class ProductCategories extends React.Component {
   constructor(props){
     super(props)
@@ -131,6 +134,10 @@ class ProductCategories extends React.Component {
     }
   }
 
+handleClick(event){
+  console.log(event.target.id.toString());
+}
+
   render(){
     const {classes} = this.props
     return (
@@ -138,6 +145,9 @@ class ProductCategories extends React.Component {
         <div className={classes.images}>
           {this.state.images.map(image => (
             <React.Fragment>
+      <React.Fragment>
+        <div className={classes.images}>
+          {this.state.images.map(image => (
                 <ButtonBase
                   key={image.title}
                   className={classes.imageWrapper}
@@ -145,28 +155,39 @@ class ProductCategories extends React.Component {
                     width: image.width,
                   }}
                 >
-                  <div
-                    className={classes.imageSrc}
-                    style={{
-                      backgroundImage: `url(${image.url})`,
-                    }}
-                  />
-                  <div className={classes.imageBackdrop} />
-                  <div className={classes.imageButton}>
-                    <Typography
-                      component="h3"
-                      variant="h6"
-                      color="inherit"
-                      className={classes.imageTitle}
-                    >
-                      {image.title}
-                      <div className={classes.imageMarked} />
-                    </Typography>
-                  </div>
+                    <div
+                      className={classes.imageSrc}
+                      style={{
+                        backgroundImage: `url(${image.url})`,
+                      }}
+                    />
+                    <div className={classes.imageBackdrop}
+                    id={image.title}
+                    component={RouterLink}
+                    to={image.path}/>
+                    <div className={classes.imageButton}
+                    id={image.title}
+                    onClick={this.handleClick}>
+                      <Typography
+                        component="h3"
+                        variant="h6"
+                        color="inherit"
+                        className={classes.imageTitle}
+                        id={image.title}
+                      >
+                        {image.title}
+                        <div className={classes.imageMarked} />
+                      </Typography>
+                    </div>
                 </ButtonBase>
           </React.Fragment>
           ))}
         </div>
+=======
+          ))}
+        </div>
+
+  </React.Fragment>
       </LayoutBody>
     );
   }
